@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#ffd84d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pinta y juega">
+<title>Pinta y juega</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- Pantalla de inicio: los botones de juegos se crean solos a partir de los juegos registrados -->
+<section class="screen on" id="home">
+  <button class="ib gear" id="gear" aria-label="Opciones para padres (mantén pulsado)"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><i class="ring"></i><b class="badge" id="gearBadge" hidden></b></button>
+  <h1 id="hello">¡Hola!</h1>
+  <div class="tiles" id="tiles"></div>
+  <p class="hint">Papá o mamá: mantén pulsado el engranaje para opciones, fotos y novedades.</p>
+</section>
+
+<!-- Aquí se insertan las pantallas de cada juego -->
+<div id="screens"></div>
+
+<!-- Panel de padres: cada juego puede añadir sus propias opciones -->
+<div class="sheet" id="parent"><div class="panel">
+  <h2>Para papá y mamá</h2>
+  <div class="update"><span id="verText">Versión</span><button class="btn ghost" id="updateNow">Buscar actualización</button></div>
+  <h3>Nombre de la peque</h3>
+  <input class="txt" id="kidName" maxlength="20" placeholder="Por ejemplo: Lucía" autocomplete="off">
+  <h3>Fotos de la familia</h3>
+  <div class="thumbs" id="thumbs"></div>
+  <label class="btn"><input type="file" accept="image/*" multiple id="addPhotos" hidden>Añadir fotos</label>
+  <p class="muted" style="margin-top:8px">Hasta 12 fotos. Se guardan solo en este móvil, no se suben a ningún sitio.</p>
+  <h3>General</h3>
+  <div class="tg"><span>Sonidos</span><button class="sw2" role="switch" data-set="sound" aria-label="Sonidos"></button></div>
+  <div class="tg"><span>Voz que habla</span><button class="sw2" role="switch" data-set="voice" aria-label="Voz"></button></div>
+  <div id="gameOptions"></div>
+  <h3>Novedades</h3>
+  <div id="changelog" class="log"></div>
+  <div class="row"><button class="btn" data-close>Listo</button></div>
+</div></div>
+
+<!-- Celebración compartida por todos los juegos -->
+<div class="sheet center" id="yay"><div class="yay">
+  <div class="big">🎉</div>
+  <h2 id="yayText">¡Muy bien!</h2>
+  <button class="btn" id="again">Otra vez</button>
+</div></div>
+
+<canvas id="fx"></canvas>
+<div class="toast" id="toast"></div>
+
+<!-- Orden de carga: versión y núcleo, módulos compartidos, datos, juegos, arranque.
+     Para añadir un juego nuevo: crea js/games/mijuego.js y añade su línea aquí, antes de main.js -->
+<script src="version.js"></script>
+<script src="js/core.js"></script>
+<script src="js/photos.js"></script>
+<script src="js/lineart.js"></script>
+<script src="js/data/items.js"></script>
+<script src="js/data/templates.js"></script>
+<script src="js/games/draw.js"></script>
+<script src="js/games/pairs.js"></script>
+<script src="js/games/find.js"></script>
+<script src="js/parents.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

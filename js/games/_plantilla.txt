@@ -1,0 +1,44 @@
+/* PLANTILLA PARA UN JUEGO NUEVO
+   1. Copia este archivo como js/games/mijuego.js (con extensión .js).
+   2. En index.html añade <script src="js/games/mijuego.js"></script> junto a los otros juegos.
+   3. (Opcional) Añade './js/games/mijuego.js' a la lista CORE de sw.js para que funcione sin internet desde el primer momento.
+   4. Sube la versión en version.js y escribe la novedad.
+   El botón en el inicio y la pantalla se crean solos.
+
+   Herramientas disponibles en App:
+     App.say('texto')            voz en español
+     App.sfx.pop/flip/yes/no/win sonidos
+     App.confetti()              confeti
+     App.win(funcionOtraVez)     pantalla de "¡Muy bien!" con botón Otra vez
+     App.fitGrid(el, n)          reparte n casillas cuadradas en el elemento
+     App.shuffle(lista), App.pick(lista)
+     App.photos.list()           fotos de la familia
+     App.data.animals / things / colors / stickers / templates
+     App.settings + App.saveSettings()   opciones guardadas en el móvil
+     App.kid()                   nombre de la peque (o vacío) */
+App.registerGame({
+  id: 'mijuego',                 // sin espacios ni tildes
+  title: 'Mi juego',             // texto del botón
+  color: 'var(--violet)',        // color del botón: var(--violet), var(--orange) o cualquier #color
+  order: 4,                      // posición en el inicio
+  art: '<svg viewBox="0 0 120 100"><circle cx="60" cy="50" r="36" fill="#fff"/></svg>',
+
+  html: () => `
+    <div class="bar">${App.homeBtn()}<span class="sp"></span></div>
+    <div class="board"></div>`,
+
+  init(el) {
+    const board = el.querySelector('.board');
+    this.play = () => {
+      const items = App.shuffle(App.data.animals).slice(0, 4);
+      board.innerHTML = items.map(([e, name]) => `<button class="ft" style="background:#fff" data-name="${name}">${e}</button>`).join('');
+      App.fitGrid(board, items.length);
+    };
+    board.addEventListener('click', e => {
+      const b = e.target.closest('[data-name]'); if (!b) return;
+      App.sfx.yes(); App.say(b.dataset.name);
+    });
+  },
+
+  start() { this.play(); }
+});

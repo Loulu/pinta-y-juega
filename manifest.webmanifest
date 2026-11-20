@@ -1,0 +1,17 @@
+{
+  "name": "Pinta y juega",
+  "short_name": "Pinta y juega",
+  "description": "Pintar, colorear fotos, parejas y buscar. Sin anuncios.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffd84d",
+  "theme_color": "#ffd84d",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

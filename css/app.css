@@ -136,4 +136,9 @@ svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .ft.wrong{animation:shake .4s}
 .stars{font-size:22px;font-weight:800;background:var(--card);border-radius:14px;height:48px;display:inline-flex;align-items:center;padding:0 14px;box-shadow:var(--shadow)}
 
+/* juego: ¡pum! */
+.pstage{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow)}
+.pcv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.bar .stars+.stars{margin-left:2px}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

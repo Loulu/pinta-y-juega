@@ -54,6 +54,11 @@ window.App = (() => {
       });
     } catch (e) { }
   }
+  /* acceso al audio para juegos con sonidos propios (null si el sonido está quitado) */
+  function audio() {
+    if (!settings.sound) return null;
+    try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; } catch (e) { return null; }
+  }
   const sfx = {
     pop: () => tone([660], .08, 'triangle'),
     flip: () => tone([520, 700], .08, 'triangle', .05),
@@ -166,5 +171,5 @@ window.App = (() => {
     if (g && g.start) requestAnimationFrame(() => g.start($('#' + id)));
   }
 
-  return { $, $$, store, settings, saveSettings, shuffle, pick, icon, homeBtn, sfx, say, quiet, kid, toast, confetti, openSheet, closeSheet, wireSheets, holdBtn, fitGrid, loadImg, win, games, registerGame, show, reduce, get againFn() { return againFn; } };
+  return { $, $$, store, settings, saveSettings, shuffle, pick, icon, homeBtn, sfx, audio, say, quiet, kid, toast, confetti, openSheet, closeSheet, wireSheets, holdBtn, fitGrid, loadImg, win, games, registerGame, show, reduce, get againFn() { return againFn; } };
 })();

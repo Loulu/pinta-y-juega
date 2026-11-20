@@ -31,6 +31,8 @@ window.App = (() => {
     eraser: '<path d="M8 20h12"/><path d="M4 15l9-9 6 6-7 7H8z"/><path d="M9 10l6 6"/>',
     speaker: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 8a5 5 0 010 8"/><path d="M19.5 5.5a8.5 8.5 0 010 13"/>',
     blank: '<rect x="5" y="3" width="14" height="18" rx="2"/>',
+    brush: '<path d="M19 3l2 2-8.5 8.5-2-2z"/><path d="M10.5 11.5c-3 0-4.5 1.8-4.5 4 0 1.8-1.2 3.2-3 4.5 4.5 0 9-1.2 9.5-5.5"/>',
+    pencil: '<path d="M15.5 4.5l4 4L9 19l-5 1 1-5z"/><path d="M13.5 6.5l4 4"/><path d="M5 15l4 4" stroke-dasharray="1.5 2"/>',
     rainbow: '<path d="M3 18a9 9 0 0118 0" stroke="#ff3b4e"/><path d="M6.5 18a5.5 5.5 0 0111 0" stroke="#ffd21f"/><path d="M10 18a2 2 0 014 0" stroke="#2f7bff"/>'
   };
   const icon = n => `<svg class="i" viewBox="0 0 24 24">${IC[n] || ''}</svg>`;

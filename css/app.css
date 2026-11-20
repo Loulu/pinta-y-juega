@@ -140,5 +140,34 @@ svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .pstage{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow)}
 .pcv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
 .bar .stars+.stars{margin-left:2px}
+.stars[hidden]{display:none}
+
+/* juego: buscar */
+.quickv{flex:1;display:flex;flex-direction:column;min-height:0}
+.quickv[hidden],.mapv[hidden],.hintb[hidden]{display:none}
+.mapv{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow)}
+.mcv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+#find .bar .chips{flex:1}
+
+/* juego: cocina */
+.order{margin:0 10px 8px;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:22px;padding:6px 14px;box-shadow:var(--shadow);flex:none;text-align:left}
+.order[hidden]{display:none}
+.order.nope{animation:shake .4s}
+.order .who{font-size:44px;line-height:1}
+.order .bubble{display:flex;flex-direction:column;gap:2px;min-width:0}
+.order b{font-size:18px;line-height:1.1}
+.order .reqs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.req{position:relative;font-size:30px;line-height:1;background:#fff;border-radius:12px;padding:3px 6px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.08)}
+.req i{font-style:normal;font-size:13px;font-weight:800;margin-left:2px;vertical-align:middle}
+.req em{position:absolute;right:-6px;top:-6px;width:20px;height:20px;border-radius:50%;background:#2bd15a;color:#fff;font-size:13px;font-style:normal;display:grid;place-items:center;font-weight:800}
+.req.ok{opacity:.6}
+.cuts{font-size:18px}
+.kstage{flex:1;position:relative;margin:0 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow)}
+.kcv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.serve{position:absolute;right:14px;top:14px;font-size:22px;min-height:58px;background:var(--coral);animation:pop 1s infinite}
+.serve[hidden]{display:none}
+.shelf{flex:none;display:flex;gap:8px;overflow-x:auto;padding:10px;scrollbar-width:none}
+.shelf::-webkit-scrollbar{display:none}
+.shelf button{flex:none;width:62px;height:62px;border-radius:18px;background:var(--card);font-size:40px;line-height:1;box-shadow:var(--shadow)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

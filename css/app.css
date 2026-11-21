@@ -180,6 +180,15 @@ svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .snstage{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow);background:#262b45}
 .sncv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
 
+/* juego: colores */
+.cstage{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow)}
+.ccv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.cdot{display:inline-block;width:30px;height:30px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15),0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.2);vertical-align:middle}
+.cdot.big{width:38px;height:38px}
+.order .plus{font-style:normal;font-size:22px;font-weight:800;margin:0 2px}
+.ib.pulse{animation:pop 1s infinite;background:var(--coral);color:#fff}
+#colors .bar .chips{flex:1}
+
 /* juego: cocina */
 .order{margin:0 10px 8px;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:22px;padding:6px 14px;box-shadow:var(--shadow);flex:none;text-align:left}
 .order[hidden]{display:none}

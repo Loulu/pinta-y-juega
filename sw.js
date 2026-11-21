@@ -8,7 +8,7 @@ const CORE = [
   './', './index.html', './version.js', './manifest.webmanifest', './css/app.css',
   './js/core.js', './js/photos.js', './js/lineart.js', './js/parents.js', './js/main.js',
   './js/data/items.js', './js/data/templates.js',
-  './js/games/draw.js', './js/games/pairs.js', './js/games/find.js', './js/games/punch.js', './js/games/cook.js', './js/games/hide.js', './js/games/mahjong.js', './js/games/snakes.js',
+  './js/games/draw.js', './js/games/pairs.js', './js/games/find.js', './js/games/punch.js', './js/games/cook.js', './js/games/hide.js', './js/games/mahjong.js', './js/games/snakes.js', './js/games/colors.js',
   './fonts/baloo-2-latin-600-normal.woff2', './fonts/baloo-2-latin-800-normal.woff2',
   './icons/icon-192.png', './icons/icon-512.png'
 ];

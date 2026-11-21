@@ -1,6 +1,6 @@
 # Pinta y juega
 
-App para peques, para móvil: pintar, colorear fotos, parejas, buscar (mapa escondite), ¡Pum!, cocina, Mahjong (999 niveles) y Gusanitos (99 niveles). Sin anuncios, sin cuentas y funciona sin internet. Las fotos y el nombre se guardan solo en el móvil.
+App para peques, para móvil: pintar, colorear fotos, parejas, buscar (mapa escondite), ¡Pum!, cocina, Mahjong (999 niveles) Gusanitos (99 niveles) y Colores de princesa. Sin anuncios, sin cuentas y funciona sin internet. Las fotos y el nombre se guardan solo en el móvil.
 
 ## Instalar en el móvil (Android)
 
@@ -41,7 +41,7 @@ js/parents.js         panel de padres
 js/main.js            arranque: crea el inicio y las pantallas a partir de los juegos
 js/data/items.js      animales, cosas, colores y pegatinas (fácil de ampliar)
 js/data/templates.js  dibujos para colorear
-js/games/*.js         un archivo por juego (draw, pairs, find + hide, punch, cook, mahjong, snakes)
+js/games/*.js         un archivo por juego (draw, pairs, find + hide, punch, cook, mahjong, snakes, colors)
 js/games/_plantilla.txt  punto de partida para un juego nuevo
 ```
 

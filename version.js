@@ -2,8 +2,9 @@
    1. Sube el número de versión.
    2. Añade una línea arriba del todo en CAMBIOS.
    Este archivo lo leen la app (panel de padres → Novedades) y el service worker. */
-self.APP_VERSION = '1.5.0';
+self.APP_VERSION = '1.6.0';
 self.APP_CAMBIOS = [
+  ['1.6.0', 'Juego nuevo Colores de princesa: mezcla colores en un cerdito, un frasco corazón o una poción, con brillantina y retos de la princesa.'],
   ['1.5.0', 'Juego nuevo Gusanitos: lleva cada gusano a su agujero. 99 niveles, todos con solución.'],
   ['1.4.0', 'Juego nuevo Mahjong Solitario con 999 niveles, todos con solución, y globos al terminar cada nivel.'],
   ['1.3.0', 'Juego nuevo Cocina (cortar, olla, modo libre y 10 menús) y Buscar con mapa escondite de gatitos y otros animales.'],

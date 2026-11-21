@@ -87,6 +87,7 @@ svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .stage canvas{position:absolute;touch-action:none;background:transparent}
 .stage .paint{background:#fff;border-radius:18px}
 .stage .lines{pointer-events:none}
+.stage .pen{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .tools{flex:none;padding:10px;display:flex;flex-direction:column;gap:10px;position:relative}
 .colors{display:flex;gap:10px;overflow-x:auto;padding:6px 4px;scrollbar-width:none}
 .colors::-webkit-scrollbar,.stickers::-webkit-scrollbar{display:none}

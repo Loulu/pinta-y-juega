@@ -19,14 +19,15 @@ App.registerGame({
       <button class="ib" data-a="save" aria-label="Guardar dibujo">${I('save')}</button>
       <button class="ib" data-a="clear" aria-label="Borrar todo (mantén pulsado)">${I('bin')}<i class="ring"></i></button>
     </div>
-    <div class="stage"><canvas class="paint"></canvas><canvas class="lines"></canvas></div>
+    <div class="stage"><canvas class="paint"></canvas><canvas class="lines"></canvas><canvas class="pen"></canvas></div>
     <div class="tools">
       <div class="stickers" hidden></div>
       <div class="colors"></div>
       <div class="tl">
         <button class="ib dotb" data-a="size" aria-label="Grosor"><i></i></button>
-        <button class="ib on" data-tool="brush" aria-label="Pincel">${I('brush')}</button>
-        <button class="ib" data-tool="pencil" aria-label="Lápiz de color">${I('pencil')}</button>
+        <button class="ib" data-tool="graphite" aria-label="Lápiz"><svg class="i" viewBox="0 0 24 24" style="stroke:none"><path d="M4 20l1.2-4.6L16 4.6l3.4 3.4L8.6 18.8z" fill="#ffc83d"/><path d="M4 20l1.2-4.6 3.4 3.4z" fill="#f2d3a6"/><path d="M4 20l.5-1.9 1.4 1.4z" fill="#333"/><path d="M16 4.6l1.6-1.6 3.4 3.4L19.4 8z" fill="#ff8fb1"/></svg></button>
+        <button class="ib on" data-tool="pencil" aria-label="Lápiz de colores"><svg class="i" viewBox="0 0 24 24" style="stroke:none"><path d="M3 21l1-4 9-9 3 3-9 9z" fill="#ff3b4e"/><path d="M8 21l1-4 8-8 3 3-8 8z" fill="#2f7bff" opacity=".95"/><path d="M13 21l1-4 6-6 3 3-6 6z" fill="#2bd15a" opacity=".95"/></svg></button>
+        <button class="ib" data-tool="brush" aria-label="Pincel">${I('brush')}</button>
         <button class="ib" data-tool="rainbow" aria-label="Arcoíris">${I('rainbow')}</button>
         <button class="ib" data-tool="fill" aria-label="Rellenar">${I('bucket')}</button>
         <button class="ib" data-tool="sticker" aria-label="Pegatinas">${I('star')}</button>
@@ -63,13 +64,13 @@ App.registerGame({
 
   init(el) {
     const S = App.settings;
-    if (S.drawClip === undefined) { S.drawClip = true; App.saveSettings(); }
+    if (S.drawClipV2 === undefined) { S.drawClip = false; S.drawClipV2 = 1; App.saveSettings(); }
     const q = s => el.querySelector(s), qa = s => [...el.querySelectorAll(s)];
     const stage = q('.stage'), pc = q('.paint'), lc = q('.lines');
     const p = pc.getContext('2d', { willReadFrequently: true }), l = lc.getContext('2d', { willReadFrequently: true });
     const scratch = document.createElement('canvas'), sx = scratch.getContext('2d');
     const COLORS = App.data.colors, STK = App.data.stickers, SIZES = [7, 16, 32];
-    let color = '#ff3b4e', size = 16, tool = 'brush', sticker = STK[0], hue = 0, k = 1, made = false;
+    let color = '#ff3b4e', size = 16, tool = 'pencil', lastDraw = 'pencil', sticker = STK[0], hue = 0, k = 1, made = false;
     const undo = [], pts = new Map();
 
     q('.colors').innerHTML = COLORS.map(c => `<button class="swc${c === color ? ' on' : ''}" data-c="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join('');
@@ -177,18 +178,19 @@ App.registerGame({
     }
     function doUndo() { const s = undo.pop(); if (!s) { App.sfx.no(); return; } p.drawImage(s.a, 0, 0); if (s.b) { l.clearRect(0, 0, lc.width, lc.height); l.drawImage(s.b, 0, 0); linesChanged(); } App.sfx.pop(); }
     function pos(e) { const r = pc.getBoundingClientRect(); k = pc.width / r.width; return [(e.clientX - r.left) * k, (e.clientY - r.top) * k]; }
-    const width = () => size * k * (tool === 'eraser' ? 2 : tool === 'pencil' ? .8 : 1);
+    const width = () => size * k * (tool === 'eraser' ? 2 : tool === 'pencil' ? .8 : tool === 'graphite' ? .45 : 1);
     function style(ctx) {
       ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = width(); ctx.globalAlpha = 1;
       if (tool === 'eraser') ctx.strokeStyle = ctx.fillStyle = '#fff';
       else if (tool === 'rainbow') { hue = (hue + 5) % 360; ctx.strokeStyle = ctx.fillStyle = `hsl(${hue} 95% 55%)`; }
       else if (tool === 'pencil') { const pat = pencilPattern(ctx, color); ctx.strokeStyle = ctx.fillStyle = pat; ctx.globalAlpha = .55; }
+      else if (tool === 'graphite') { const pat = pencilPattern(ctx, '#2e2e33'); ctx.strokeStyle = ctx.fillStyle = pat; ctx.globalAlpha = .62; }
       else ctx.strokeStyle = ctx.fillStyle = color;
     }
     function rawSeg(ctx, a, b, c, d) {
       style(ctx);
       if (a === c && b === d) { ctx.beginPath(); ctx.arc(a, b, ctx.lineWidth / 2, 0, Math.PI * 2); ctx.fill(); }
-      else if (tool === 'pencil') {
+      else if (tool === 'pencil' || tool === 'graphite') {
         /* dos pasadas un poco desplazadas: borde irregular como un lápiz de verdad */
         const j = ctx.lineWidth * .18;
         for (let t = 0; t < 2; t++) { const ox = (Math.random() - .5) * j, oy = (Math.random() - .5) * j; ctx.beginPath(); ctx.moveTo(a + ox, b + oy); ctx.lineTo(c + ox, d + oy); ctx.stroke(); }
@@ -233,27 +235,56 @@ App.registerGame({
       if (!pts.size) snap();
       try { stage.setPointerCapture(e.pointerId); } catch (_) { }
       const ptr = { x, y, mask: regionMask(x, y) };
-      pts.set(e.pointerId, ptr); seg(ptr, x, y, x, y);
+      pts.set(e.pointerId, ptr); seg(ptr, x, y, x, y); showPen(e);
     });
     stage.addEventListener('pointermove', e => {
       const o = pts.get(e.pointerId); if (!o) return;
       let evs = e.getCoalescedEvents ? e.getCoalescedEvents() : []; if (!evs.length) evs = [e];
       for (const ev of evs) { const [x, y] = pos(ev); seg(o, o.x, o.y, x, y); o.x = x; o.y = y; }
+      showPen(e);
     });
-    const end = e => pts.delete(e.pointerId);
+    const end = e => { pts.delete(e.pointerId); if (!pts.size) hidePen(); };
     stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
 
+    /* ---- lápiz que se ve en la pantalla mientras se dibuja ---- */
+    const penC = q('.pen'), pen = penC.getContext('2d');
+    function hidePen() { pen.setTransform(1, 0, 0, 1, 0, 0); pen.clearRect(0, 0, penC.width, penC.height); }
+    function showPen(e) {
+      if (tool !== 'pencil' && tool !== 'graphite') return;
+      const r = stage.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      if (penC.width !== Math.round(r.width * d) || penC.height !== Math.round(r.height * d)) { penC.width = Math.round(r.width * d); penC.height = Math.round(r.height * d); }
+      const x = e.clientX - r.left, y = e.clientY - r.top, Lp = Math.min(150, r.width * .38), w = Lp * .1;
+      const body = tool === 'graphite' ? '#ffc83d' : color === '#ffffff' ? '#f3f3f3' : color, lead = tool === 'graphite' ? '#2e2e33' : color;
+      pen.setTransform(d, 0, 0, d, 0, 0); pen.clearRect(0, 0, r.width, r.height);
+      pen.save(); pen.translate(x, y); pen.rotate(-PI_ / 3.3);
+      pen.save(); pen.translate(4, 8); pen.globalAlpha = .18; pen.fillStyle = '#000'; pen.beginPath(); pen.moveTo(0, 0); pen.lineTo(Lp * .16, -w / 2); pen.lineTo(Lp, -w / 2); pen.lineTo(Lp, w / 2); pen.lineTo(Lp * .16, w / 2); pen.closePath(); pen.fill(); pen.restore();
+      pen.lineJoin = 'round'; pen.strokeStyle = 'rgba(0,0,0,.35)'; pen.lineWidth = 1.2;
+      /* madera afilada y punta */
+      pen.fillStyle = '#f2d3a6'; pen.beginPath(); pen.moveTo(0, 0); pen.lineTo(Lp * .16, -w / 2); pen.lineTo(Lp * .16, w / 2); pen.closePath(); pen.fill(); pen.stroke();
+      pen.fillStyle = lead; pen.beginPath(); pen.moveTo(0, 0); pen.lineTo(Lp * .055, -w * .18); pen.lineTo(Lp * .055, w * .18); pen.closePath(); pen.fill();
+      /* cuerpo con caras */
+      pen.fillStyle = body; pen.fillRect(Lp * .16, -w / 2, Lp * .68, w); pen.strokeRect(Lp * .16, -w / 2, Lp * .68, w);
+      pen.fillStyle = 'rgba(255,255,255,.35)'; pen.fillRect(Lp * .16, -w / 2, Lp * .68, w * .3);
+      pen.fillStyle = 'rgba(0,0,0,.12)'; pen.fillRect(Lp * .16, w * .18, Lp * .68, w * .32);
+      /* parte de metal y goma */
+      pen.fillStyle = '#c9ced6'; pen.fillRect(Lp * .84, -w / 2, Lp * .07, w); pen.strokeRect(Lp * .84, -w / 2, Lp * .07, w);
+      pen.strokeStyle = 'rgba(0,0,0,.25)'; for (const t of [.86, .89]) { pen.beginPath(); pen.moveTo(Lp * t, -w / 2); pen.lineTo(Lp * t, w / 2); pen.stroke(); }
+      pen.fillStyle = '#ff8fb1'; pen.beginPath(); pen.roundRect(Lp * .91, -w / 2, Lp * .09, w, [0, w * .35, w * .35, 0]); pen.fill();
+      pen.restore();
+    }
+    const PI_ = Math.PI;
+
     /* ---- controles ---- */
-    function setTool(t) { tool = t; qa('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t)); q('.stickers').hidden = t !== 'sticker'; }
+    function setTool(t) { tool = t; if (t === 'pencil' || t === 'graphite' || t === 'brush') lastDraw = t; qa('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t)); q('.stickers').hidden = t !== 'sticker'; }
     q('.colors').addEventListener('click', e => {
       const b = e.target.closest('[data-c]'); if (!b) return;
       color = b.dataset.c; qa('.swc').forEach(s => s.classList.toggle('on', s === b));
-      if (tool === 'eraser' || tool === 'rainbow' || tool === 'sticker') setTool('brush');
+      if (tool === 'eraser' || tool === 'rainbow' || tool === 'sticker' || tool === 'fill' || tool === 'graphite') setTool(tool === 'fill' ? 'fill' : (lastDraw === 'graphite' ? 'pencil' : lastDraw));
       App.sfx.pop();
     });
     q('.tl').addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return; App.sfx.pop();
-      if (b.dataset.a === 'size') { size = SIZES[(SIZES.indexOf(size) + 1) % SIZES.length]; sizeDot(); if (tool === 'fill' || tool === 'sticker') setTool('brush'); return; }
+      if (b.dataset.a === 'size') { size = SIZES[(SIZES.indexOf(size) + 1) % SIZES.length]; sizeDot(); if (tool === 'fill' || tool === 'sticker') setTool(lastDraw); return; }
       setTool(b.dataset.tool);
     });
     q('.stickers').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; sticker = b.dataset.s; qa('.stickers button').forEach(x => x.classList.toggle('on', x === b)); App.sfx.pop(); });

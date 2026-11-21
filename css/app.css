@@ -175,6 +175,11 @@ svg.i{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .mjgrid .chip.done{background:#dff6f3}
 .mjgrid .chip:disabled{opacity:.45}
 
+/* juego: gusanitos */
+#snakes .bar .snlvl{border:0;font:inherit;font-size:20px;font-weight:800;color:var(--ink)}
+.snstage{flex:1;position:relative;margin:0 10px 10px;border-radius:22px;overflow:hidden;touch-action:none;min-height:0;box-shadow:var(--shadow);background:#262b45}
+.sncv{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+
 /* juego: cocina */
 .order{margin:0 10px 8px;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:22px;padding:6px 14px;box-shadow:var(--shadow);flex:none;text-align:left}
 .order[hidden]{display:none}

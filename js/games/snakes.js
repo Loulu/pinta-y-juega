@@ -6,7 +6,7 @@
    se pueden deshacer, deshaciendo ese camino se gana.
    Dificultad: tableros más grandes y con huecos, más gusanos, más largos y más enredados. */
 App.registerGame({
-  id: 'snakes', title: 'Gusanitos', color: '#5b6bd6', order: 7,
+  id: 'snakes', title: 'Gusanitos', color: '#9b7bff', order: 7,
   art: '<svg viewBox="0 0 120 100"><path d="M24 74h34V40h38" fill="none" stroke="#1e7a2f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 74h34V40h38" fill="none" stroke="#7ed957" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="92" cy="34" r="6" fill="#fff"/><circle cx="92" cy="46" r="6" fill="#fff"/><circle cx="94" cy="34" r="3" fill="#222"/><circle cx="94" cy="46" r="3" fill="#222"/><circle cx="22" cy="40" r="12" fill="#1e7a2f"/><circle cx="22" cy="40" r="7" fill="#123"/></svg>',
 
   html: () => `
@@ -259,13 +259,14 @@ App.registerGame({
     }
     function roundRect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
     function drawBoard() {
-      ctx.fillStyle = '#262b45'; ctx.fillRect(0, 0, W, H);
+      const bgG = ctx.createLinearGradient(0, 0, 0, H); bgG.addColorStop(0, '#4a2163'); bgG.addColorStop(1, '#2e1442'); ctx.fillStyle = bgG; ctx.fillRect(0, 0, W, H);
+      for (let i = 0; i < 30; i++) { const sx = (i * 97.3) % W, sy = (i * 53.7) % H, a = .3 + .3 * Math.sin(t0 * 2 + i); ctx.fillStyle = `rgba(255,220,250,${a})`; ctx.beginPath(); ctx.arc(sx, sy, 1.6, 0, TAU); ctx.fill(); }
       const g = cell * .06;
       for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
         if (!mask[y][x]) continue;
         const px = ox + x * cell, py = oy + y * cell;
-        ctx.fillStyle = '#aab3d9'; roundRect(px + g, py + g * 1.6, cell - g * 2, cell - g * 2, cell * .14); ctx.fill();
-        ctx.fillStyle = '#e4e9fb'; roundRect(px + g, py + g, cell - g * 2, cell - g * 2.4, cell * .14); ctx.fill();
+        ctx.fillStyle = '#e3a6d2'; roundRect(px + g, py + g * 1.6, cell - g * 2, cell - g * 2, cell * .14); ctx.fill();
+        ctx.fillStyle = '#ffeaf7'; roundRect(px + g, py + g, cell - g * 2, cell - g * 2.4, cell * .14); ctx.fill();
       }
       for (const s of snakes) {
         const [hx, hy] = center(s.hole), [col, dark] = COLORS[s.c], R = cell * .34;

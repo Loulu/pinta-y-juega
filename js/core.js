@@ -88,7 +88,7 @@ window.App = (() => {
     if (reduce) return;
     fx = fx || $('#fx'); fxc = fxc || fx.getContext('2d');
     const d = Math.min(devicePixelRatio || 1, 2); fx.width = innerWidth * d; fx.height = innerHeight * d; fxc.setTransform(d, 0, 0, d, 0, 0);
-    const cs = ['#ff5d6c', '#13a89c', '#3d7dff', '#ffd21f', '#8b5cf6', '#ff8c1a'];
+    const cs = ['#ff5fa2', '#ffb3d9', '#c46cf0', '#ffd34d', '#8a8cff', '#ffffff'];
     for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 9; parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 6, r: 4 + Math.random() * 6, c: cs[i % cs.length], rot: Math.random() * 6, vr: (Math.random() - .5) * .4, life: 1 }); }
     if (!fxRun) { fxRun = true; requestAnimationFrame(stepFx); }
   }

@@ -5,7 +5,7 @@
    La brillantina dorada y la de arcoíris hacen que el líquido brille.
    Modo ✨ libre y modo 👸 retos: la princesa pide un color y enseña qué frascos mezclar. */
 App.registerGame({
-  id: 'colors', title: 'Colores', color: '#ff6fb5', order: 8,
+  id: 'colors', title: 'Colores', color: '#ff7ac0', order: 8,
   art: '<svg viewBox="0 0 120 100"><ellipse cx="64" cy="56" rx="38" ry="29" fill="#fff" opacity=".9"/><path d="M26 56a38 29 0 0 0 76 0z" fill="#d36bff"/><ellipse cx="28" cy="58" rx="9" ry="11" fill="#ffb3d9"/><path d="M40 32l-6-14 14 8z" fill="#ffb3d9"/><path d="M42 22l4-10 5 7 5-9 4 9 5-7 3 10z" fill="#ffd21f"/><circle cx="52" cy="13" r="2.5" fill="#ff5d9e"/><path d="M95 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff"/><path d="M14 22l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#fff"/></svg>',
 
   html: () => `

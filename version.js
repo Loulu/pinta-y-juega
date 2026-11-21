@@ -2,8 +2,9 @@
    1. Sube el número de versión.
    2. Añade una línea arriba del todo en CAMBIOS.
    Este archivo lo leen la app (panel de padres → Novedades) y el service worker. */
-self.APP_VERSION = '1.6.1';
+self.APP_VERSION = '1.7.0';
 self.APP_CAMBIOS = [
+  ['1.7.0', 'Todo rosa de princesas. Juegos nuevos: Puzle (dibujos o fotos, de 4 a 36 piezas) y Vestir (armario de princesa y príncipe).'],
   ['1.6.1', 'Pintar: ya se puede pintar fuera de las líneas, lápiz normal nuevo y un lápiz que se ve en la pantalla mientras se dibuja.'],
   ['1.6.0', 'Juego nuevo Colores de princesa: mezcla colores en un cerdito, un frasco corazón o una poción, con brillantina y retos de la princesa.'],
   ['1.5.0', 'Juego nuevo Gusanitos: lleva cada gusano a su agujero. 99 niveles, todos con solución.'],

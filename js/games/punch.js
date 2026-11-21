@@ -114,16 +114,16 @@ App.registerGame({
       bg = document.createElement('canvas'); bg.width = cv.width; bg.height = cv.height;
       const b = bg.getContext('2d'); b.scale(dpr, dpr);
       const hz = H * .17;
-      let g = b.createLinearGradient(0, 0, 0, hz); g.addColorStop(0, '#7fcbff'); g.addColorStop(1, '#cdeeff');
+      let g = b.createLinearGradient(0, 0, 0, hz); g.addColorStop(0, '#ffc2e6'); g.addColorStop(1, '#ffe6f5');
       b.fillStyle = g; b.fillRect(0, 0, W, hz + 2);
       b.fillStyle = '#fff';
       for (const [cx, cy, k] of [[.18, .07, 1], [.7, .05, 1.3], [.92, .11, .8]]) { const x = cx * W, y = cy * H, rr = 16 * s * k; b.beginPath(); b.arc(x, y, rr, 0, TAU); b.arc(x + rr, y + 4 * s, rr * .8, 0, TAU); b.arc(x - rr, y + 5 * s, rr * .7, 0, TAU); b.fill(); }
-      b.fillStyle = '#9fdc6f';
+      b.fillStyle = '#f7b3dc';
       b.beginPath(); b.ellipse(W * .2, hz + 8 * s, W * .35, 40 * s, 0, PI, 0); b.fill();
       b.beginPath(); b.ellipse(W * .8, hz + 10 * s, W * .4, 46 * s, 0, PI, 0); b.fill();
-      g = b.createLinearGradient(0, hz, 0, H); g.addColorStop(0, '#8fdc5e'); g.addColorStop(1, '#58ad3e');
+      g = b.createLinearGradient(0, hz, 0, H); g.addColorStop(0, '#f9c6e6'); g.addColorStop(1, '#e49ccc');
       b.fillStyle = g; b.fillRect(0, hz, W, H - hz);
-      b.strokeStyle = 'rgba(40,110,30,.45)'; b.lineWidth = 2 * s; b.lineCap = 'round';
+      b.strokeStyle = 'rgba(190,70,140,.4)'; b.lineWidth = 2 * s; b.lineCap = 'round';
       let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
       for (let i = 0; i < 70; i++) { const x = rnd() * W, y = hz + 10 + rnd() * (H - hz - 10), h = (5 + rnd() * 6) * s; b.beginPath(); b.moveTo(x - 3 * s, y); b.lineTo(x - 4 * s, y - h); b.moveTo(x, y); b.lineTo(x, y - h * 1.2); b.moveTo(x + 3 * s, y); b.lineTo(x + 4 * s, y - h); b.stroke(); }
       for (let i = 0; i < 14; i++) { const x = rnd() * W, y = hz + 20 + rnd() * (H - hz - 30); b.fillStyle = ['#fff', '#ffd21f', '#ff8fb1'][i % 3]; for (let k = 0; k < 5; k++) { const a = k * TAU / 5; b.beginPath(); b.arc(x + Math.cos(a) * 3 * s, y + Math.sin(a) * 3 * s, 2.4 * s, 0, TAU); b.fill(); } b.fillStyle = '#ffb627'; b.beginPath(); b.arc(x, y, 1.8 * s, 0, TAU); b.fill(); }

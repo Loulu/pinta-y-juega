@@ -9,6 +9,7 @@
 
   const tiles = $('#tiles'), screens = $('#screens'), opts = $('#gameOptions');
   tiles.classList.toggle('many', App.games.length > 3);
+  tiles.classList.toggle('lots', App.games.length > 6);
   for (const g of App.games) {
     tiles.insertAdjacentHTML('beforeend', `<button class="tile" data-go="${g.id}" style="background:${g.color}">${g.art || ''}<span>${g.title}</span></button>`);
     const sec = document.createElement('section');

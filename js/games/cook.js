@@ -131,10 +131,10 @@ App.registerGame({
     const boardCenter = () => ({ x: L.board.x + L.board.w / 2, y: L.board.y + L.board.h / 2 });
     function buildBg() {
       bgc = document.createElement('canvas'); bgc.width = cv.width; bgc.height = cv.height; const b = bgc.getContext('2d'); b.scale(dpr, dpr);
-      b.fillStyle = '#fdf1d8'; b.fillRect(0, 0, W, H);
-      b.strokeStyle = 'rgba(200,170,120,.35)'; b.lineWidth = 1.5;
+      b.fillStyle = '#ffe6f3'; b.fillRect(0, 0, W, H);
+      b.strokeStyle = 'rgba(230,140,190,.35)'; b.lineWidth = 1.5;
       const tile = 34 * s; for (let x = 0; x < W; x += tile) { b.beginPath(); b.moveTo(x, 0); b.lineTo(x, L.counter); b.stroke(); } for (let y = 0; y < L.counter; y += tile) { b.beginPath(); b.moveTo(0, y); b.lineTo(W, y); b.stroke(); }
-      let g = b.createLinearGradient(0, L.counter, 0, H); g.addColorStop(0, '#d9a066'); g.addColorStop(1, '#b97a43'); b.fillStyle = g; b.fillRect(0, L.counter, W, H - L.counter);
+      let g = b.createLinearGradient(0, L.counter, 0, H); g.addColorStop(0, '#f2a7cf'); g.addColorStop(1, '#d97fb2'); b.fillStyle = g; b.fillRect(0, L.counter, W, H - L.counter);
       b.fillStyle = 'rgba(0,0,0,.12)'; b.fillRect(0, L.counter, W, 6 * s);
       const P = L.pot; b.fillStyle = '#3b3f46'; b.beginPath(); b.roundRect(P.x - P.r * 1.5, P.y + P.r * .78, P.r * 3, P.r * .5, 10 * s); b.fill();
       const B = L.board; b.save(); b.shadowColor = 'rgba(0,0,0,.25)'; b.shadowOffsetY = 6 * s; b.shadowBlur = 8 * s;

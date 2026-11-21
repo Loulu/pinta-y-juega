@@ -6,7 +6,7 @@
    Dificultad: más fichas (de 12 a 144), más pisos (hasta 5) y más dibujos distintos.
    Al terminar: globos que se pueden explotar, fanfarria y "¡Muy bien!". */
 App.registerGame({
-  id: 'mahjong', title: 'Mahjong', color: '#1f8a5b', order: 6,
+  id: 'mahjong', title: 'Mahjong', color: '#e05fae', order: 6,
   art: '<svg viewBox="0 0 120 100"><g transform="rotate(-8 60 50)"><rect x="18" y="22" width="40" height="54" rx="7" fill="#c9b48a"/><rect x="14" y="18" width="40" height="54" rx="7" fill="#fffdf5"/><circle cx="34" cy="45" r="12" fill="#ff5d6c"/></g><g transform="rotate(8 60 50)"><rect x="66" y="22" width="40" height="54" rx="7" fill="#c9b48a"/><rect x="62" y="18" width="40" height="54" rx="7" fill="#fffdf5"/><circle cx="82" cy="45" r="12" fill="#ff5d6c"/></g></svg>',
 
   html: () => `
